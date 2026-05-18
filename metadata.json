@@ -1,0 +1,8 @@
+{
+  "name": "Neon Surge",
+  "description": "Retrowave Snake game crossing neon aesthetic with an AI Generated music player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

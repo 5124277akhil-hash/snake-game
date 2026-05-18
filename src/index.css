@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", monospace;
+  --font-mono: "Silkscreen", monospace;
+}
+
+body {
+  background-color: #050505;
+  color: #00ffff;
+  margin: 0;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Static Noise Effect */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  mix-blend-mode: screen;
+}
+
+/* CRT Scanlines */
+.scanlines {
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 255, 0.05) 51%);
+  background-size: 100% 4px;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  color: #00ffff;
+}
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #050505;
+  overflow: hidden;
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 #00ffff;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Alternate magenta glitch effect */
+.glitch-text-magenta {
+  position: relative;
+  display: inline-block;
+  color: #ff00ff;
+}
+.glitch-text-magenta::before, .glitch-text-magenta::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #050505;
+  overflow: hidden;
+}
+.glitch-text-magenta::before {
+  left: 3px;
+  text-shadow: -2px 0 #00ffff;
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+.glitch-text-magenta::after {
+  left: -3px;
+  text-shadow: 2px 0 #ff00ff;
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(1px, -1px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 1px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
+}
+
+/* Screen Tearing Effect */
+.screen-tear {
+  animation: tear 4s infinite step-end;
+}
+@keyframes tear {
+  0% { transform: translateX(0); }
+  92% { transform: translateX(0); }
+  93% { transform: translateX(3px); filter: hue-rotate(90deg); }
+  94% { transform: translateX(-3px); filter: hue-rotate(-90deg); }
+  95% { transform: translateX(0); }
+  98% { transform: translateX(-5px);  }
+  99% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
